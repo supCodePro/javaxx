@@ -2079,5 +2079,68 @@ public class chengyuan{
             dp1[1]= new Dtperson();
         }
     }
+    /*
+        父子类之间的类型转换
+            1.自动转换（向上转型-多态） 小->大
+            2.强制转换（向下转型）    大->小
+                强制转换：
+                    因为多态，调用不到子类独有的内容，我就是像调用(少见)
+                    向下转型是有风险的，所以尽量少强转
+     */
+    public class 父子类强制转换 {
+        public static void main (String[] args
+        ){
+            Dtperson ps = new DtEmploye3();
+            //此时ps调用不到dtemp里的woring需要下面的强转
+            //将ps向下转型但只能转成employe 因为ps是employe充当的
+            DtEmploye3 emp = (DtEmploye3) ps;//取消多态
+            //类似于👇
+                double d = 12.5;
+                int i =(int)d;
+            //类似结束👆
+                //语法：子类类型 对象名=（子类类型）父类引用
+                emp.working();//转型后此时已经没有多态了
+            //为什么为有风险？
+                DtStudent dts =(DtStudent) ps;//因为这个语法编译时成立
+            //但是运行时候不成立 本身是emp要转成stu 会报ClassCastException类型转换异常
+
+            //怎么知道他是什么类型？因为有时候代码是这样的
+            //写这个方法的时候不清楚person的实际类型是什么？（对于现在来说不是emp就是stu）
+            DtEmploye3 emp2 = new DtEmploye3();
+            DtStudent dtu1=() new DtStudent();
+            method(dtu1);//学习
+            method(emp2);//在工作
+            public static void method(Dtperson ps1) {
+                    if(ps1 instanceof Employee){
+                        Employee emp1 =(Employee) ps1;//如果ps1属于emp就强转成emp
+                        emp1.working();
+
+
+                    }else if(ps1 instanceof DtStudent){
+                            DtStudent dts1=(DtStudent) ps1;
+                            dts1.study();
+                    }
+
+                    /*
+                        如果参数是emp就工作 stu就学习
+                        需要判断per的实际对象是什么
+                        强转之前一定要做判断 使用 instance of 关键字
+                        讲解instance of 关键字👇
+                            DtEmploye3 dt3 = new DtEmploye3();//没有多态
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            System.out.println(dlag);//true
+                         问 上面DtEmploty属于person吗？//属于
+                         如果
+                            Dtperson dt3 = new DtEmploye3();
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            就是名义属于person 也属于employe 如果是stu就不属于stu
+                            简单分辨方法 看前面实际对象是否属于后面的类型
+
+                     */
+
+
+            }
+        }
+    }
 
 }
