@@ -2187,4 +2187,77 @@ public class chengyuan{
             //这个可以替代getInfo 返回功能 因为toString是默认调用方便点 getInfo需要调用
         }
     }
+
+    /*
+        2.getClass();反射绘制，会遇到此方法
+            功能：返回对象的运行时类型(类加载的时候，会创建一个class对象)
+
+     */
+    public class getClass {
+        public static void main (String args[]){
+            Employee emp = new Employee();
+            emp.getClass();
+            System.out.println(emp.getClass());//返回emp对象在运行时的类型
+
+            Employee emp1 = new Employee();
+            System.out.println(emp==emp1);//false 因为他们不是同一个对象
+            System.out.println(emp1.getClass());//他们是同一个
+            System.out.println(emp.getClass());//true
+        }
+
+    }
+    /*
+        3.hashCode()
+            将当前对象，通过哈希算法，得到一个int值
+            两对相同对象(地址是一样的)经过相同的hash算法 得到的int值一定是一样的
+            两个不同的对象：经过相同的hash算法 得到的int值 可能是一样的 大概率是不一样的
+                集合-->HashMap集合的时候，会遇到hashCode方法
+     */
+    public  class hashCode{
+        public static void main (){
+            Employee emp = new Employee();
+            System.out.println(emp.hashCode());//一串int值
+            Employee emp1 =emp;
+            System.out.println(emp1.hashCode());//两个值一样的
+
+            Employee emp2 = new Employee();
+            System.out.println(emp2.hashCode());//这时候两个值不一样
+
+        }
+    }
+    /*
+        finalize()
+            java存在垃圾回收机制（自动的机制）
+            没有引用的对象会被回收
+            java钟被认为垃圾的对象，什么时候会被回收机制回收？
+                不定时回收
+            垃圾对象被回收的时候，实惠默认调用该对象的finalize方法
+            让该对象做一个临终遗言（但是这个并不是回收代码）
+
+     */
+    public  class finalize{
+        public static void main (){
+            Employee emp = new Employee();
+            emp.name = "123";
+            System.out.println(emp.name);
+            Employee emp1 = new Employee();
+            emp1.name = "321";
+            System.out.println(emp1.name);
+            emp=new Employee();
+            emp.name = "213";//这时候123就是垃圾对象 213将123覆盖了
+            //在回收的时候会在动调用123的finalize方法 但是Obeject类继承下的的方法内什么都没有写
+            //如果想看是不是123被回收emp类可以重写finlaize方法调用的就是重写之后的 下面是示例不在类里面写了
+            protected void finalize() throws Throwable {
+                System.out.println(this.name+"回收");
+            }
+            System.gc();//通知垃圾回收机制来回收垃圾（也不会立刻来回收垃圾对象）这个不是立即执行 下面是睡眠代码示例
+            //程序睡眠两秒 垃圾回收机制就会运行
+            try {
+                Thread.sleep(2000);//睡眠两千毫秒
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println("睡醒了");
+        }
+    }
 }
