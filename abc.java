@@ -1,14 +1,4 @@
-import com.abc.ceshi.fangfa;
-
 import java.util.Arrays;
-import java.util.Scanner;
-
-public class a0hellojava {
-    public static void main(String[] args) {
-        //helloworld教程 输出一个a字符
-        System.out.println('a');
-    }
-}
 
 public class a1变量声明 {
     public static void main(String[] args) {
@@ -1672,7 +1662,7 @@ public class tostring{
     public static  void main (String[] args){
 
         String[] arrs={"啊","波","磁"};//静态数组
-        String s =Arrays.toString(arrs);
+        String s = Arrays.toString(arrs);
         System.out.println(s);//{"啊","波","磁"}
 
     }
@@ -2080,4 +2070,121 @@ public class chengyuan{
         }
     }
 
+    /*
+        父子类之间的类型转换
+            1.自动转换（向上转型-多态） 小->大
+            2.强制转换（向下转型）    大->小
+                强制转换：
+                    因为多态，调用不到子类独有的内容，我就是像调用(少见)
+                    向下转型是有风险的，所以尽量少强转
+     */
+    public class 父子类强制转换 {
+        public static void main (String[] args
+        ){
+            Dtperson ps = new DtEmploye3();
+            //此时ps调用不到dtemp里的woring需要下面的强转
+            //将ps向下转型但只能转成employe 因为ps是employe充当的
+            DtEmploye3 emp = (DtEmploye3) ps;//取消多态
+            //类似于👇
+            double d = 12.5;
+            int i =(int)d;
+            //类似结束👆
+            //语法：子类类型 对象名=（子类类型）父类引用
+            emp.working();//转型后此时已经没有多态了
+            //为什么为有风险？
+            DtStudent dts =(DtStudent) ps;//因为这个语法编译时成立
+            //但是运行时候不成立 本身是emp要转成stu 会报ClassCastException类型转换异常
+
+            //怎么知道他是什么类型？因为有时候代码是这样的
+            //写这个方法的时候不清楚person的实际类型是什么？（对于现在来说不是emp就是stu）
+            DtEmploye3 emp2 = new DtEmploye3();
+            DtStudent dtu1= new DtStudent();
+            method(dtu1);//学习
+            method(emp2);//在工作
+            public static void method(Dtperson ps1) {
+                if(ps1 instanceof Employee){
+                    Employee emp1 =(Employee) ps1;//如果ps1属于emp就强转成emp
+                    emp1.working();
+
+
+                }else if(ps1 instanceof DtStudent){
+                    DtStudent dts1=(DtStudent) ps1;
+                    dts1.study();
+                }
+
+                    /*
+                        如果参数是emp就工作 stu就学习
+                        需要判断per的实际对象是什么
+                        强转之前一定要做判断 使用 instance of 关键字
+                        讲解instance of 关键字👇
+                            DtEmploye3 dt3 = new DtEmploye3();//没有多态
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            System.out.println(dlag);//true
+                         问 上面DtEmploty属于person吗？//属于
+                         如果
+                            Dtperson dt3 = new DtEmploye3();
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            就是名义属于person 也属于employe 如果是stu就不属于stu
+                            简单分辨方法 看前面实际对象是否属于后面的类型
+
+                     */
+
+
+            }
+        }
+    }
+
+    /*
+        native关键字
+            本地的原生的(了解就可以了)
+            追踪源码的时候，会见到这个关键字 方法不是java实现而是c语言实现
+            native修饰的方法是可以被重写的
+
+            不能和abstract修饰的修饰符有哪些
+
+            1.final 和final不能一起修饰方法
+            2.和static不能修饰方法和类
+            3.和native不能一起修饰方法
+            4.和private不能一起修饰方法
+            static和final一起使用:
+(1)修饰方法:可以，因为都不能被重写
+修饰成员变量:可以，表示静态常量(2)
+(3) 修饰局部变量:不可以，static不能修饰局部变量(4)修饰代码块:不可以，fina1不能修改代码块
+(5)修饰内部类:可以一起修饰成员内部类，不能一起修饰局部内部类
+     */
+
+
+    /*
+        Object 根父类
+            默认是类的父类（没有显示默认父类默认是Object 创建了就是创建的父类）
+            该类中的所有方法都可以被任意类使用
+            根据api去学
+            构造器：
+                Object();
+            方法：
+                toString();
+     */
+    public class Object根父类{
+        public static void main (String[] args){
+            DtEmploye3 ep = new DtEmploye3();//初始化对象
+            //初始化的对象除了自己创建的方法所有都是可以调到的 如toString
+            ep.toString();//这行没有意义 示例而已
+
+            String s = ep.toString();
+            System.out.println(s);//地址
+            System.out.println(ep);//地址
+            //所有的对象，在输出或者拼接的时候，都会默认调用该对象的toString方法
+
+            String str = new String("abc");
+            System.out.println(str.toString());//为什么他输出是值不是地址？因为重写了
+            //Object不能满足需求所以重写了
+
+            //直接输出employee对象的时候，输出其他所有属性信息 该如何操作
+            //Object中toString不能满足要求 所以也要重写
+            //在Dtemp类中重写 查看Dtemp中toString方法
+            //重写后
+            System.out.println(ep.toString());//这时候点跳进去就是自己的toSttring
+            //这个可以替代getInfo 返回功能 因为toString是默认调用方便点 getInfo需要调用
+        }
+    }
 }
