@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class a1变量声明 {
     public static void main(String[] args) {
@@ -2258,6 +2259,76 @@ public class chengyuan{
                 e.printStackTrace();
             }
             System.out.println("睡醒了");
+        }
+    }
+
+    /*
+        equals(Obeject obj)
+        判断两个对象是否一致
+        == 他这个主要是判断两个地址是否一致
+        源码和==没有区别
+        public boolean equals(Object obj){
+        return (this == obj)
+        }
+        是STRING类型不能用==用equals
+     */
+    public class equals{
+        public static void main(String args[]){
+            String srt ="123";
+            String srt1 ="123";
+            System.out.println(srt==srt1);//判断两个对象是否相等 结果：true
+            Scanner input = new Scanner(System.in);
+            String str3=input.next();//输入123
+            System.out.println(srt==str3);//这个结果是false 因为他这个主要是判断两个地址是否一致
+
+            System.out.println("判断"+srt.equals(str3));//true 此时equals是string类重写的对比的是内容
+            /*
+                源码
+                            public boolean equals(Object anObject) {
+                            //地址是否一样，如果一样内容肯定一样
+                    if (this == anObject) {
+                        return true;
+                    }
+                    //判断anObject是否String类型
+                    if (anObject instanceof String) {
+                    //向下转型
+                        String anotherString = (String)anObject;
+                        int n = value.length;
+                        判断长度是否一样，如果长度不一样返回false
+                        if (n == anotherString.value.length) {
+                        v1是this的字符串内容
+                            char v1[] = value;
+                            参数字符串的内容
+                            char v2[] = anotherString.value;
+                            挨个字符的对比从从头到尾 如果不一样返回false否则true
+                            int i = 0;
+                            while (n-- != 0) {
+                                if (v1[i] != v2[i])
+                                    return false;
+                                i++;
+                            }
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+             */
+            Person ps = new Person();
+
+            Person ps1 = ps;
+
+            Person ps2 =new Person();
+
+            System.out.println(ps==ps1);//true 地址一样
+
+            System.out.println(ps==ps2);//flase 地址不一样
+
+            System.out.println(ps.equals(ps2));//判断ps和ps2是否一样 false
+            /*
+                equals练习
+                    创建两个Person对象 只要name和id都一样就是同一个人
+                        解 在Person类钟重写equals方法(对比内容id和name)
+             */
         }
     }
 }
