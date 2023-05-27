@@ -1,14 +1,5 @@
-import com.abc.ceshi.fangfa;
-
 import java.util.Arrays;
 import java.util.Scanner;
-
-public class a0hellojava {
-    public static void main(String[] args) {
-        //helloworld教程 输出一个a字符
-        System.out.println('a');
-    }
-}
 
 public class a1变量声明 {
     public static void main(String[] args) {
@@ -1672,7 +1663,7 @@ public class tostring{
     public static  void main (String[] args){
 
         String[] arrs={"啊","波","磁"};//静态数组
-        String s =Arrays.toString(arrs);
+        String s = Arrays.toString(arrs);
         System.out.println(s);//{"啊","波","磁"}
 
     }
@@ -2143,4 +2134,264 @@ public class chengyuan{
         }
     }
 
+    /*
+        父子类之间的类型转换
+            1.自动转换（向上转型-多态） 小->大
+            2.强制转换（向下转型）    大->小
+                强制转换：
+                    因为多态，调用不到子类独有的内容，我就是像调用(少见)
+                    向下转型是有风险的，所以尽量少强转
+     */
+    public class 父子类强制转换 {
+        public static void main (String[] args
+        ){
+            Dtperson ps = new DtEmploye3();
+            //此时ps调用不到dtemp里的woring需要下面的强转
+            //将ps向下转型但只能转成employe 因为ps是employe充当的
+            DtEmploye3 emp = (DtEmploye3) ps;//取消多态
+            //类似于👇
+            double d = 12.5;
+            int i =(int)d;
+            //类似结束👆
+            //语法：子类类型 对象名=（子类类型）父类引用
+            emp.working();//转型后此时已经没有多态了
+            //为什么为有风险？
+            DtStudent dts =(DtStudent) ps;//因为这个语法编译时成立
+            //但是运行时候不成立 本身是emp要转成stu 会报ClassCastException类型转换异常
+
+            //怎么知道他是什么类型？因为有时候代码是这样的
+            //写这个方法的时候不清楚person的实际类型是什么？（对于现在来说不是emp就是stu）
+            DtEmploye3 emp2 = new DtEmploye3();
+            DtStudent dtu1= new DtStudent();
+            method(dtu1);//学习
+            method(emp2);//在工作
+            public static void method(Dtperson ps1) {
+                if(ps1 instanceof Employee){
+                    Employee emp1 =(Employee) ps1;//如果ps1属于emp就强转成emp
+                    emp1.working();
+
+
+                }else if(ps1 instanceof DtStudent){
+                    DtStudent dts1=(DtStudent) ps1;
+                    dts1.study();
+                }
+
+                    /*
+                        如果参数是emp就工作 stu就学习
+                        需要判断per的实际对象是什么
+                        强转之前一定要做判断 使用 instance of 关键字
+                        讲解instance of 关键字👇
+                            DtEmploye3 dt3 = new DtEmploye3();//没有多态
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            System.out.println(dlag);//true
+                         问 上面DtEmploty属于person吗？//属于
+                         如果
+                            Dtperson dt3 = new DtEmploye3();
+                            Boolean dlag = dt3 instanceof DtEmploye3;
+                            就是名义属于person 也属于employe 如果是stu就不属于stu
+                            简单分辨方法 看前面实际对象是否属于后面的类型
+
+                     */
+
+
+            }
+        }
+    }
+
+    /*
+        native关键字
+            本地的原生的(了解就可以了)
+            追踪源码的时候，会见到这个关键字 方法不是java实现而是c语言实现
+            native修饰的方法是可以被重写的
+
+            不能和abstract修饰的修饰符有哪些
+
+            1.final 和final不能一起修饰方法
+            2.和static不能修饰方法和类
+            3.和native不能一起修饰方法
+            4.和private不能一起修饰方法
+            static和final一起使用:
+(1)修饰方法:可以，因为都不能被重写
+修饰成员变量:可以，表示静态常量(2)
+(3) 修饰局部变量:不可以，static不能修饰局部变量(4)修饰代码块:不可以，fina1不能修改代码块
+(5)修饰内部类:可以一起修饰成员内部类，不能一起修饰局部内部类
+     */
+
+
+    /*
+        Object 根父类
+            默认是类的父类（没有显示默认父类默认是Object 创建了就是创建的父类）
+            该类中的所有方法都可以被任意类使用
+            根据api去学
+            构造器：
+                Object();
+            方法：
+                toString();
+     */
+    public class Object根父类{
+        public static void main (String[] args){
+            DtEmploye3 ep = new DtEmploye3();//初始化对象
+            //初始化的对象除了自己创建的方法所有都是可以调到的 如toString
+            ep.toString();//这行没有意义 示例而已
+
+            String s = ep.toString();
+            System.out.println(s);//地址
+            System.out.println(ep);//地址
+            //所有的对象，在输出或者拼接的时候，都会默认调用该对象的toString方法
+
+            String str = new String("abc");
+            System.out.println(str.toString());//为什么他输出是值不是地址？因为重写了
+            //Object不能满足需求所以重写了
+
+            //直接输出employee对象的时候，输出其他所有属性信息 该如何操作
+            //Object中toString不能满足要求 所以也要重写
+            //在Dtemp类中重写 查看Dtemp中toString方法
+            //重写后
+            System.out.println(ep.toString());//这时候点跳进去就是自己的toSttring
+            //这个可以替代getInfo 返回功能 因为toString是默认调用方便点 getInfo需要调用
+        }
+    }
+
+    /*
+        2.getClass();反射绘制，会遇到此方法
+            功能：返回对象的运行时类型(类加载的时候，会创建一个class对象)
+
+     */
+    public class getClass {
+        public static void main (String args[]){
+            Employee emp = new Employee();
+            emp.getClass();
+            System.out.println(emp.getClass());//返回emp对象在运行时的类型
+
+            Employee emp1 = new Employee();
+            System.out.println(emp==emp1);//false 因为他们不是同一个对象
+            System.out.println(emp1.getClass());//他们是同一个
+            System.out.println(emp.getClass());//true
+        }
+
+    }
+    /*
+        3.hashCode()
+            将当前对象，通过哈希算法，得到一个int值
+            两对相同对象(地址是一样的)经过相同的hash算法 得到的int值一定是一样的
+            两个不同的对象：经过相同的hash算法 得到的int值 可能是一样的 大概率是不一样的
+                集合-->HashMap集合的时候，会遇到hashCode方法
+     */
+    public  class hashCode{
+        public static void main (){
+            Employee emp = new Employee();
+            System.out.println(emp.hashCode());//一串int值
+            Employee emp1 =emp;
+            System.out.println(emp1.hashCode());//两个值一样的
+
+            Employee emp2 = new Employee();
+            System.out.println(emp2.hashCode());//这时候两个值不一样
+
+        }
+    }
+    /*
+        finalize()
+            java存在垃圾回收机制（自动的机制）
+            没有引用的对象会被回收
+            java钟被认为垃圾的对象，什么时候会被回收机制回收？
+                不定时回收
+            垃圾对象被回收的时候，实惠默认调用该对象的finalize方法
+            让该对象做一个临终遗言（但是这个并不是回收代码）
+
+     */
+    public  class finalize{
+        public static void main (){
+            Employee emp = new Employee();
+            emp.name = "123";
+            System.out.println(emp.name);
+            Employee emp1 = new Employee();
+            emp1.name = "321";
+            System.out.println(emp1.name);
+            emp=new Employee();
+            emp.name = "213";//这时候123就是垃圾对象 213将123覆盖了
+            //在回收的时候会在动调用123的finalize方法 但是Obeject类继承下的的方法内什么都没有写
+            //如果想看是不是123被回收emp类可以重写finlaize方法调用的就是重写之后的 下面是示例不在类里面写了
+            protected void finalize() throws Throwable {
+                System.out.println(this.name+"回收");
+            }
+            System.gc();//通知垃圾回收机制来回收垃圾（也不会立刻来回收垃圾对象）这个不是立即执行 下面是睡眠代码示例
+            //程序睡眠两秒 垃圾回收机制就会运行
+            try {
+                Thread.sleep(2000);//睡眠两千毫秒
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println("睡醒了");
+        }
+    }
+
+    /*
+        equals(Obeject obj)
+        判断两个对象是否一致
+        == 他这个主要是判断两个地址是否一致
+        源码和==没有区别
+        public boolean equals(Object obj){
+        return (this == obj)
+        }
+        是STRING类型不能用==用equals
+     */
+    public class equals{
+        public static void main(String args[]){
+            String srt ="123";
+            String srt1 ="123";
+            System.out.println(srt==srt1);//判断两个对象是否相等 结果：true
+            Scanner input = new Scanner(System.in);
+            String str3=input.next();//输入123
+            System.out.println(srt==str3);//这个结果是false 因为他这个主要是判断两个地址是否一致
+
+            System.out.println("判断"+srt.equals(str3));//true 此时equals是string类重写的对比的是内容
+            /*
+                源码
+                            public boolean equals(Object anObject) {
+                            //地址是否一样，如果一样内容肯定一样
+                    if (this == anObject) {
+                        return true;
+                    }
+                    //判断anObject是否String类型
+                    if (anObject instanceof String) {
+                    //向下转型
+                        String anotherString = (String)anObject;
+                        int n = value.length;
+                        判断长度是否一样，如果长度不一样返回false
+                        if (n == anotherString.value.length) {
+                        v1是this的字符串内容
+                            char v1[] = value;
+                            参数字符串的内容
+                            char v2[] = anotherString.value;
+                            挨个字符的对比从从头到尾 如果不一样返回false否则true
+                            int i = 0;
+                            while (n-- != 0) {
+                                if (v1[i] != v2[i])
+                                    return false;
+                                i++;
+                            }
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+             */
+            Person ps = new Person();
+
+            Person ps1 = ps;
+
+            Person ps2 =new Person();
+
+            System.out.println(ps==ps1);//true 地址一样
+
+            System.out.println(ps==ps2);//flase 地址不一样
+
+            System.out.println(ps.equals(ps2));//判断ps和ps2是否一样 false
+            /*
+                equals练习
+                    创建两个Person对象 只要name和id都一样就是同一个人
+                        解 在Person类钟重写equals方法(对比内容id和name)
+             */
+        }
+    }
 }
