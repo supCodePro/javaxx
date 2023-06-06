@@ -2436,6 +2436,7 @@ public class chengyuan{
     }
     public class JiekouNote {
         public static void main(String[] args) {
+            //演示可查看usefly类
             /*
                 1.接口
                     JDK1.8之前
@@ -2466,6 +2467,73 @@ public class chengyuan{
                                         2.选择其中一个或者都选
                                             父接口.super.方法
              */
+        }
+    }
+
+    /*
+        经典的接口
+            1.java.lang.Comparable
+                抽象方法--> int compareTo(Object obj)
+                功能 this和obj对比大小
+                返回值：
+                    正数说明this大
+                    负数说明this小
+                    0一般大
+                自然排序
+                    对比两个对象的大小（指定根据什么比）
+                在需要对比的类上实现该接口
+                    1.在Jdjiekou类上实现该接口
+                    2.实现该接口的抽象方法
+                    3.方法体中实现比较规则
+            2.java.util.Comparator
+                定制排序
+     */
+    public class 经典的接口 {
+        public static void main(String[] args) {
+            int [] arrs={1,2,3};
+
+            Jdjiekou[] jj = new Jdjiekou[5];
+            jj[0]=new Jdjiekou(1,"2",3);
+            jj[1]=new Jdjiekou(2,"4",3);
+            jj[2]=new Jdjiekou(3,"6",3);
+            jj[3]=new Jdjiekou(4,"8",3);
+            jj[4]=new Jdjiekou(5,"10",3);
+
+            //对jj数组排序： 根id排序
+            for (int i =0;i< jj.length-1;i++){
+                for(int y =0;y< jj.length-i-1;y++){
+                    if(jj[y].getId()>jj[y].getId()){
+                        Jdjiekou temp=jj[y];
+                        jj[y]=jj[y+1];
+                        jj[y+1]=temp;
+                    }
+                }
+            }
+            //面向对象--->谁能完成此任务：Arrys.sort()
+            //借助sort排序但是sort也不知道跟谁排序
+            //sort会自动调用ComparTo方法，此时可以根据sort对数组进行排序
+
+            //这里的重点在这里👇👇👇和经典接口2
+            Arrays.sort(jj);
+            //如何解决：定义一个规范 如果用户（程序员）想通过sort进行排序
+            //必须实现规范（一个接口）指定根据什么排，并且指定降序或升序
+            //为什么官方需要去实现接口，因为sort方法需要调用该接口中的compareTo方法
+            //实现内接口必须实现compareTo方法
+            for(int i =0;i<jj.length;i++){
+                System.out.println(jj[i]);
+            }
+
+        }
+    }
+
+    public class 经典的接口2 {
+        public static void main(String[] args) {
+            Jdjiekou jj = new Jdjiekou(1,"2",3);
+            Jdjiekou jj1 = new Jdjiekou(2,"3",4);
+            //比较这两个对象大小
+                int i = jj.compareTo(jj1);
+            System.out.println(i);
+
         }
     }
 
