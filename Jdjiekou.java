@@ -5,6 +5,8 @@ public class Jdjiekou implements Comparable{
 
     private int age;
 
+
+
     public Jdjiekou(int id, String name, int age) {
         this.id = id;
         this.name = name;
