@@ -2664,5 +2664,39 @@ public class chengyuan{
         }
     }
 
+    /*
+        单例模式
+            1.设计模式 重要
+            23种（换一种方式实现功能）
+                1.1单例模式
+                    一个类对外只提供一个对象！
+                            1.构造器私有化（不让外界new对象）
+                            2.在本类内实例化一个对象，然后让外界可以获取到
+                        1.懒汉式
+                            Single类中方式4是懒汉式
+                                特点：只有使用的时候才准备对象
+                        2.饿汉式
+                        Single类中方式123是饿汉式
+                            特点：不管使用不使用，类加载的时候，对象已经准备好
+     */
+        /*
+            实现单例模式
+         */
+    public class Single1 {
+        public static void main(String[] args) {
+             //Single sle = new Single(); 已经私有化不能new
+            Single s1 = Single.getSingle();
+            Single s2 = Single.getSingle();
+            System.out.println(s1==s2);//true 他们两个是一样的
+
+            /*
+                第二种方式直接调用常量
+                Single.SINGLE
+
+                Single s2 = Single.SINGLE;
+             */
+
+        }
+    }
 
 }
