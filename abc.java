@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class a1变量声明 {
@@ -2581,6 +2582,85 @@ public class chengyuan{
                 }
                 return 0;
             }
+        }
+    }
+
+
+    /*
+        3.内部类（了解）
+            类的五大成员->成员变量、成员方法、构造器、初始化块、内部类
+            分类：
+                成员内部类
+                静态成员内部类
+                局部内部类
+                匿名内部类
+            3.1 匿名内部类 （只用一次情况系啊）
+                语法：new 类、抽象类、接口()后面可以跟{}
+                解析：大括号就是相当于是类的子类、接口的实现类的大括号
+                优缺点：
+                    优点：简单（省略了创建类）
+                    缺点：复用性差
+                jdk1.8:lambda表达式对部分匿名内部类的简化操作
+                lambda表达式示例：->{
+                    sout（name+age+“aaa”）
+                    //也可以带有返回值return
+                }
+
+                Test test = （name，age）
+          练习：
+                创建一个类，定义一些属性，然后创建数组，存储对象，对数组排序
+     */
+    public class 匿名内部类{
+        public static void main(String[] args) {
+            new Car();//实例化了一个匿名对象 没有引用
+            //抽象类和接口不能实例化对象，都是通过其子类使用的
+            Jdjiekou[] jj = new Jdjiekou[5];
+            jj[0]=new Jdjiekou(1,"2",3);
+            jj[1]=new Jdjiekou(2,"4",3);
+            jj[2]=new Jdjiekou(3,"6",3);
+            jj[3]=new Jdjiekou(4,"8",3);
+            jj[4]=new Jdjiekou(5,"10",3);
+            //2.定制排序的规则时，先创建一个实现类，在实现抽象方法
+            //相当于出昂见了一个Comparator接口实现类的对象，实现类没有名称，所以称之为匿名对象
+            Arrays.sort(jj,new 构造器.Comparator接口.MyComparable());//定制排序
+
+
+            Comparator com = new Comparator() {
+                //此处相当于是Compararator接收的实现类的类体
+                @Override
+                public int compare(Object o1, Object o2) {
+                    if(o1==o2){//地址一样是同一个对象 返回0
+                        return 0;
+                    }if(o1 instanceof Jdjiekou && o2 instanceof Jdjiekou){
+                        Jdjiekou jj1=(Jdjiekou)o1;
+                        Jdjiekou jj2=(Jdjiekou)o2;
+                        return jj1.hashCode()-jj2.getId();
+                        //如果想从大到小 return -（this.age-jj.id);
+                    }
+                    //如果o不是jdjiekou就认为是this大
+                    return -1;
+                }
+            };
+            Arrays.sort(jj,com );//定制排序
+
+            for(int i =0;i< jj.length;i++){
+                System.out.println(jj[i]);
+            }
+        }
+    }
+
+
+    //匿名内部类
+    new Car(){
+        //此处的大括号相当于是car子类的类体
+    };
+
+    //匿名抽象类
+    new Chouxiangys(){
+        //此处的大括号相当于chouxiangys子类的类体
+        @Override
+                public void method(){
+
         }
     }
 
