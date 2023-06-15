@@ -2485,8 +2485,10 @@ public class chengyuan{
                     1.在Jdjiekou类上实现该接口
                     2.实现该接口的抽象方法
                     3.方法体中实现比较规则
-            2.java.util.Comparator
+            2.java.util.Comparator -->定制排序
+                int compare(Object o1,Object o2)
                 定制排序
+                定制排序优先级高于自然排序
      */
     public class 经典的接口 {
         public static void main(String[] args) {
@@ -2534,6 +2536,51 @@ public class chengyuan{
                 int i = jj.compareTo(jj1);
             System.out.println(i);
 
+        }
+    }
+
+    public class Comparator接口{
+        public static void main(String[] args) {
+            Jdjiekou[] jj = new Jdjiekou[5];
+            jj[0]=new Jdjiekou(1,"2",3);
+            jj[1]=new Jdjiekou(2,"4",3);
+            jj[2]=new Jdjiekou(3,"6",3);
+            jj[3]=new Jdjiekou(4,"8",3);
+            jj[4]=new Jdjiekou(5,"10",3);
+
+            Arrays.sort(jj);//这里用的是pbject//数组排序 自然排序
+            //Arrays.sort(Jdjiekou,new MyComparable());
+            //前提：没有权限修改jj类的代码 如第三方产品
+            //采用定制排序
+
+            //第二种情况：如果Jdjiekou2有自然排序，根据年龄从小到大
+            //自然排序不满足我的要求 想要根据age从大到小
+            /*
+                1.改自然排序 （不能使用）
+                    当遇到现在的需求的时候，发现自然排序已存在  肯定是有其他人
+                    自然排序的需求 如果修改会为别人带来麻烦
+                2.采用定制排序(定制排序和自然排序同时存在 首先执行定制排序)
+             */
+            for(int i =0;i< jj.length;i++){
+                System.out.println(jj[i]);
+            }
+        }
+        //这里作为定制排序的实现类
+        class MyComparable implements Comparable{
+
+
+            @Override
+            public int compareTo(Object o1,Object o2) {
+                if(o1==o2){
+                    return 0;
+                }
+                if(o1 instanceof Jdjiekou && o2 instanceof Jdjiekou){
+                    Jdjiekou per1=(Jdjiekou) o1;
+                    Jdjiekou per2=(Jdjiekou) o2;
+                    return  per1.getAge()-per2.getAge();
+                }
+                return 0;
+            }
         }
     }
 
