@@ -2726,4 +2726,33 @@ public class chengyuan{
             System.out.println(g2);//直接toString
         }
     }
+
+    /*
+        枚举类的父类
+            枚举类存在一个默认的父类Enum
+                方法：
+                    name();//获得对象的名称
+                    toString()//获得对象的名称
+                    这里两个都是相同功能但是name是final修饰 toString是可以再次重写
+                    ordinal()//返回当前对象的位置(角标)
+                    values()//返回改枚举类所有的常量对象
+                    static valuOf(String xxx);//根据字符串的名称返回常量对象
+
+     */
+    public class 枚举父类 {
+        public static void main(String[] args) {
+            Gender2 g2=Gender2.BOY;
+            System.out.println(g2.name());//获得当前对象的对象名称 //boy
+            System.out.println(g2.toString());//Enum重写后的toString//这里因为重写过了所以调用的不是父类里的结果
+            System.out.println(g2.ordinal());//返回当前对象的位置(角标)
+            Gender2[] g21 = Gender2.values();//返回改枚举类所有的常量对象
+            for (int i = 0; i<g21.length;i++){
+                System.out.println(g21[i]);
+            }
+
+            String str ="BOY";
+            Gender2 g12 = Gender2.valueOf(str);//根据字符串的名称返回常量对象
+            System.out.println(g12.getValue());
+        }
+    }
 }
