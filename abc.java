@@ -2698,5 +2698,32 @@ public class chengyuan{
 
         }
     }
+    /*
+        枚举创建
+            关键字enum,通过该关键字创建的类就是枚举类 在创建新建的时候可以创建枚举类 enum
+            举例：Gender2枚举类
+            语法：【修饰符】 enum 类名 {}
+            特点：
+                1.默认是私有构造器 不能改成公有
+                2.直接写对象名即可
+                3.默认采用无参构造器
+                4.对象默认就是公有的静态常量
+                5.对象列表必须在类的首行
+                6.如果显示创建了有参构造器就没有无参了
+                    对象的创建就需要有参构造器
+                    每个对象后添加小括号
 
+     */
+    public class 枚举 {
+        public static void main(String[] args) {
+            //Gender2 g2 = new Gender2();//new不了
+            Gender2 g2=Gender2.BOY;
+            //类名可以调到说明是静态的
+            //挎包可以用说明是公有的
+            //Gender2.BOY=Gender2.GIRL;
+            //不允许修改值说明是常量
+            System.out.println(g2.getValue());
+            System.out.println(g2);//直接toString
+        }
+    }
 }
