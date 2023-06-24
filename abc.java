@@ -2738,6 +2738,15 @@ public class chengyuan{
                     values()//返回改枚举类所有的常量对象
                     static valuOf(String xxx);//根据字符串的名称返回常量对象
 
+                实现接口：
+                    语法：implements 接口名
+                    特殊点:
+                            枚举类提供的对象个数是确定的 并且在类加载的时候，对象就已经产生
+                            所以，抽象方法的实现，可以将范围缩小到某个对象
+                    语法：常量对象【(实参列表)】{对父级做拓展} 类似于匿名内部类的写法
+                         对父级做拓展参考 gender2类的girl
+                         当 当前枚举类中的所有常量对象，都对抽象方法做了实现，那么共有的就可以删除
+
      */
     public class 枚举父类 {
         public static void main(String[] args) {
@@ -2753,6 +2762,13 @@ public class chengyuan{
             String str ="BOY";
             Gender2 g12 = Gender2.valueOf(str);//根据字符串的名称返回常量对象
             System.out.println(g12.getValue());
+        }
+    }
+
+    public class 枚举实现接口 {
+        public static void main(String[] args) {
+            Gender2.BOY.MeijuJK();//输出接口实现方法
+            Gender2.GIRL.MeijuJK();//输出接口实现方法
         }
     }
 }

@@ -1,7 +1,11 @@
-public enum Gender2 {
+public enum Gender2 implements MeijuJK{
 //默认是私有 不能该成公有
     //没有属性，就没必要显示创建构造器
-    BOY("1"),GIRL("2");
+    BOY("1"),GIRL("2"){
+        public void MeijuJK(){
+            System.out.println("对父级做拓展");
+        }
+    };
     private String value;//有属性的情况
 
     public String getValue() {//属性可以对外提供get方法
@@ -18,6 +22,11 @@ public enum Gender2 {
         return "Gender2{" +
                 "value='" + value + '\'' +
                 '}';
+    }
+
+    @Override
+    public void MeijuJK() {
+        System.out.println("實現接口裏的所有方法");
     }
     //对象列表必须在类的首行
     //相当于创建了两个对象，一个是boy 一个是girl
