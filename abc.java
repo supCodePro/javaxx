@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Scanner;
 
 public class a1变量声明 {
@@ -2769,6 +2770,31 @@ public class chengyuan{
         public static void main(String[] args) {
             Gender2.BOY.MeijuJK();//输出接口实现方法
             Gender2.GIRL.MeijuJK();//输出接口实现方法
+        }
+    }
+
+    /*
+        注解：
+            1.注解的形式
+                @注解名(参数)
+            2.之前遇到的注解
+                文档注释内
+                    @author 作者
+                    @version 版本
+                注释外（掌握）
+                @Override   重写
+                源码：
+                    @Target(ElementType.METHOD)记录该注解可以应用在什么地方
+                    @Retention(RetentionPolicy.SOURCE)
+                    public @interface Override {
+                    }
+                @Deprecated 标记当前方法已过时
+     */
+
+    public class 过时方法 {
+        public static void main(String[] args) {
+            Date time = new Date();
+            time.getDate();//当调用的时候用横线表示是果实方法 不要使用 以后停止维护了
         }
     }
 }
