@@ -2797,4 +2797,113 @@ public class chengyuan{
             time.getDate();//当调用的时候用横线表示是果实方法 不要使用 以后停止维护了
         }
     }
+    /*
+        单元测试 junit
+            min方法也可以测试 但是一个类只允许存在一个卖弄方法
+            单元cesium，一个类中可以创建多个程序的入口
+                前提：
+                    1.必须使用在公有的嘞以及公有的方法上
+                    2.需要导包(将第三方产品导入到包 alt+enter)
+                @Test 要求你的项目中没有自定义的Test类
+                @After 运行test之后
+                @Before 先运行test
+                @BeforeClass 再所有的test之前运行一次 但是方法必须是静态的
+                @BeforeClass 再所有的test之后运行一次 但是方法必须是静态的
+     */
+    public class 单元测试 {
+        @Test
+         public void danyuan(){//方法名上右键可运行
+            System.out.println("测试");
+        }//使用单元测试，让该方法成为程序的入口
+
+        @Before//先运行test
+        //@After//运行test之后
+        public void danyuan1(){//方法名上右键可运行
+            System.out.println("测试");
+        }//使用单元测试，让该方法成为程序的入口
+    }
+
+    /*
+        包装类
+            5.1主要是对基本数据类型的包装
+                基本数据类型效率高 但是后期的知识有一部分是针对于面向对象设计的
+                    比如：
+                        泛型就不能指定基本数据类型
+                        集合中是不允许存储数据类型 只能春初对象
+                    个数：
+                        8个(没写在右侧的就是基本数据类型首字母大写)
+                        byte
+                        short
+                        int             Intteger
+                        long
+                        float
+                        double
+                            上面六个和数值有关的父类是Number
+                        char            Charactor
+                        boolean
+                            这两个的父类是Object
+             5.2 使用
+                装箱：
+                    基本数据类型-->包装类类型
+                    手动装箱：
+                        构造器
+                    自动装箱：
+                        直接赋值
+                拆箱：
+                    包装类类型-->基本数据类型
+                    手动拆箱：
+                        调用方法
+                    自动拆箱：
+                        直接赋值
+                包装类的常用方法：
+                    将字符串转为基本数据类型
+                        String str = ”45“； 转为int值
+                    1.通过包装类的构造器
+                        int i = new Integer(str);
+                    2.通过包装类的静态方法
+                        包装类的类名.xxxValue（String）
+                    最值：
+                        Integer.MAX_VALUE和Integer.MIN_VALUE
+
+     */
+
+    public class 包装类 {
+        @Test
+        public void danyuan(){
+         Byte//点进去看父类
+        }
+    }
+    public class 包装类使用 {
+        //其他类型同理
+        @Test
+        public void danyuan(){
+            byte b =10;
+            Byte b1 =new Byte(b);//手动装箱 这就是装箱操作 这时候b1的值也是10
+            System.out.println(b1);//为什么输出的不是地址 因为重写了tostring方法
+
+            Byte b2 =new Byte("89");//手动装箱 b2的值就是89
+
+            Byte b3 = b;//自动装箱 使用起来方便
+            System.out.println(b3);//10
+
+            Byte b4 = b1.byteValue();//手动拆箱
+
+            Byte b5 = b1;//自动拆箱
+
+        }
+    }
+
+    public class 包装类 {
+        @Test
+        public void danyuan(){
+            String str = "111";
+            int i = new Integer(str);
+            System.out.println(i);//自动将str111 装成int值
+
+            int i1 = Integer.parseInt(str);//返回值默认int值
+
+            System.out.println(i1);//其他类型一样 除了char没有这个
+        }
+    }
+
 }
